@@ -1,0 +1,172 @@
+Elections
+	Online Elections
+
+advantage?
+	current way of elections, takes much resources and still cannot confirm 100% participation
+
+Roles
+====
+	officer
+	candidate
+	voter
+
+Election
+======
+Voters				tick
+	voterid
+	votername
+	address
+	dob
+	gender
+	photo
+	regionid
+	username
+	password
+
+
+	
+Candidates			tick
+	candid
+	candname
+	address
+	qualification
+	dob
+	gender
+	candidate_type	(mahila,reserved)
+	partyid
+	candidate_symbol
+	regionid
+
+Region				tick
+	regionid
+	regionname
+	city
+	state
+	details
+
+Parties				tick
+	partyid
+	partyname
+	partysymbol
+	partytype	(regional,national)
+
+
+Election			tick
+	electionid
+	electionname
+	electiondate
+	election_start_time
+	election_end_time
+
+Votes				tick
+	voteid		pk 	ai
+	electionid
+	voterid
+	candidateid
+
+officer				tick
+	officerid
+	username
+	password
+
+candidate 
+	can fill nomination
+	can see  result
+Voter
+	can vote
+	can see result
+	a voter cant vote twice in a election
+
+Officer
+	can add party
+	can approve candidates
+	can add elections
+	generate voter list for specific election
+	
+
+	
+db.sql file
+create database election;
+use election;
+create table siteuser
+(
+username varchar(40) primary key,
+pwd  varchar(40) ,
+fname varchar(40) ,
+lname varchar(40) ,
+dob date,
+gender  varchar(6) ,
+email  varchar(30) ,
+contact varchar(30) ,
+address	varchar(250),
+hintq varchar(30) ,
+hinta varchar(30) ,
+role varchar(30) ,
+active varchar(3),
+photoid   	int(6),
+regionid     int(5) 
+);
+
+create table up_db
+(
+fileid	int(4) primary key,
+filename	varchar(30),
+filetype	varchar(30),
+filesize	int(9),
+filedata	mediumblob,
+usage	varchar(30),
+udate	date,
+utime	time
+);
+
+
+create table region
+(
+regionid	int(5) primary key auto_increment,
+regionname varchar(30),
+city	varchar(30),
+state	varchar(30),
+details	varchar(250)
+);
+
+
+create table party
+(
+partyid	int(3) primary key auto_increment,
+partyname varchar(30),
+party_symbol_name varchar(30),
+party_symbol_id int(5),
+partytype	varchar(20)
+);
+
+
+create table candidate
+(
+cand_username	varchar(30) primary key,
+qualification	varchar(200),
+candidate_type	varchar(50),
+partyid		int(4),
+candidate_symbol_name varchar(30),
+candidate_symbol_id	 int(5),
+regionid int(5)
+);
+
+create table election
+(
+electionid	int(5) primary key auto_increment, 
+electionname  varchar(30),
+electiondate  date,
+election_start_time time,
+election_end_time time
+);
+
+create table votes
+(
+voteid	int(9)	primary key auto_increment,
+electionid   int(5),
+voter_username	varchar(30),
+cand_username	varchar(30)
+);
+
+
+
